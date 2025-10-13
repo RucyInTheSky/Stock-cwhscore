@@ -159,7 +159,7 @@ def scan(tickers, pause=0.2, progress_cb=None):
     return df.sort_values("総合スコア", ascending=False) if not df.empty else df
 
 # -------------------- Streamlit UI --------------------
-st.header("📈CWHスコア")
+st.subheader("📈CWHスコア")
 st.caption("カップウィズハンドル50点＋テクニカル指標25点＋パターン認識25点で計算")
 
 ensure_db_exists()
