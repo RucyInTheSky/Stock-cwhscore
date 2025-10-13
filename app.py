@@ -168,7 +168,7 @@ col1, col2 = st.columns(2)
 with col1:
     sel_ind = st.multiselect("業種", industries)
 with col2:
-    sel_topix = st.multiselect("TOPIX区分", topix_cats)
+    sel_topix = st.multiselect("マーケット区分", topix_cats)
 
 if st.button("スキャン開始"):
     tickers = load_tickers(sel_ind, sel_topix)
@@ -188,4 +188,4 @@ if st.button("スキャン開始"):
             st.dataframe(df[cols].reset_index(drop=True), use_container_width=True)
             st.download_button("📥 CSVダウンロード", df.to_csv(index=False).encode("utf-8-sig"), "scan_results.csv")
 else:
-    st.info("業種・TOPIX区分を選択して『スキャン開始』を押してください。")
+    st.info("業種・マーケット区分を選択して『スキャン開始』を押してください。")
