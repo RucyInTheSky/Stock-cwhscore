@@ -9,7 +9,7 @@ import numpy as np
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from score_system import compute_total_score
 
-st.set_page_config(page_title="CWH株スキャナ", layout="wide")
+st.set_page_config(page_title="Stock-cwhscore", layout="wide")
 DB_PATH = "stocks.db"
 
 # -------------------- DB --------------------
@@ -159,8 +159,8 @@ def scan(tickers, pause=0.2, progress_cb=None):
     return df.sort_values("総合スコア", ascending=False) if not df.empty else df
 
 # -------------------- Streamlit UI --------------------
-st.header("📈 カップ・テクニカル・パターン統合スキャナ（v5.2）")
-st.caption("カップ検出は25％上昇＋再下降＋出来高増を条件に調整、パターンは直近10本で検出。")
+st.header("📈CWHスコア")
+st.caption("カップウィズハンドル50点＋テクニカル指標25点＋パターン認識25点で計算")
 
 ensure_db_exists()
 industries, topix_cats = load_filters()
