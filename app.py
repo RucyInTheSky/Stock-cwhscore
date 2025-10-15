@@ -106,6 +106,40 @@ def scan(tickers, pause=0.15, progress_cb=None):
 st.subheader("📈 CWHスコア（v4.4）")
 st.caption("カップ50 + テクニカル30 + パターン20 / 期間=直近3ヶ月")
 
+with st.expander("📘 アプリ概要（クリックで展開）"):
+    st.caption("""
+📈 **Cup-with-Handle Stock Scanner v4.4（Swing Trade 2 Weeks）**
+
+🔍 **概要**
+本アプリは、株価チャートパターン「カップ・ウィズ・ハンドル」をベースに、
+有名テクニカル指標およびローソク足パターン認識を組み合わせて、
+短期スイングトレード（2週間前後）で上昇が期待できる銘柄を
+スコア化・ランキングするStreamlitアプリです。
+
+🧠 **主要ロジック構成**
+- **app.py**：Streamlit UI・DBから銘柄読み込み・スキャン統括  
+- **cup_detector.py**：カップ・ウィズ・ハンドル形状解析（深さ・回復率・出来高）  
+- **technical_signals.py**：代表的なテクニカル9種＋ゴールデンクロスを解析  
+- **pattern_signals.py**：TA-Libの12種ローソク足パターン（陽線・陰線）を検出  
+- **score_system.py**：カップ50＋テクニカル30＋パターン20＝総合100点制  
+
+⚙️ **スコア構成**
+- 🏆 カップ検出（50点）：深さ10〜40%、回復率15%以上、出来高上昇、ハンドル形成  
+- 📊 テクニカル（30点）：SMA・EMA・MACD・RSI(40–60)・BB・ADX・OBV・ATR・SAR・GC  
+- 💡 パターン認識（20点）：明けの明星・白三兵・包み足・カラカサ・宵の明星・暗雲など12種  
+
+🧾 **動作仕様**
+- 期間：直近3ヶ月固定（短期トレンド重視）  
+- 対象：SQLite stocks.db 内の銘柄リスト  
+- 出力：総合スコア降順のDataFrame＋CSVダウンロード  
+- フィルタ：業種・TOPIX区分を複数選択可能  
+
+📈 **期待できる動作結果**
+本モデルは「急騰直前の静かな上昇局面」を重視しており、
+直近の過熱銘柄よりも、なだらかにトレンド形成中の銘柄を上位に抽出します。
+また、直近2週間での上昇余地を狙うスイングトレードに最適化されています。
+""")
+
 ensure_db_exists()
 industries, topix_cats = load_filters()
 col1, col2 = st.columns(2)
@@ -114,7 +148,7 @@ with col1:
 with col2:
     sel_topix = st.multiselect("マーケット区分", topix_cats)
 
-st.markdown("**期間：過去3ヶ月（固定）**")
+
 
 if st.button("スキャン開始"):
     tickers = load_tickers(sel_ind, sel_topix)
