@@ -103,8 +103,8 @@ def scan(tickers, pause=0.15, progress_cb=None):
     df = pd.DataFrame(results)
     return df.sort_values("総合スコア", ascending=False) if not df.empty else df
 
-st.subheader("📈 CWHスコア（2週間スイング向け・v4.4）")
-st.caption("カップ50 + テクニカル30 + パターン20 / 期間=直近3ヶ月（短期上昇予測に最適化）")
+st.subheader("📈 CWHスコア（v4.4）")
+st.caption("カップ50 + テクニカル30 + パターン20 / 期間=直近3ヶ月")
 
 ensure_db_exists()
 industries, topix_cats = load_filters()
